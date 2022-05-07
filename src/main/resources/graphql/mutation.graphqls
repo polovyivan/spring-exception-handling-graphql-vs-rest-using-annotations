@@ -1,0 +1,19 @@
+scalar Date
+
+type Mutation {
+     createCustomer (createCustomerRequest : CreateCustomerRequest) : CustomerResponse
+}
+
+type CustomerResponse {
+      id : String
+      fullName : String
+      phoneNumber : String
+      address : String
+      createdAt : Date
+}
+
+input CreateCustomerRequest {
+      fullName : String
+      phoneNumber : String
+      address : String
+}

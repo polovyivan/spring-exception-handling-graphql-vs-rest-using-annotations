@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "0d8b8788-48de-4a9a-923e-6001d03b50e9",
+		"name": "spring-exception-handling-graphql-vs-rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "rest",
+			"item": [
+				{
+					"name": "/customers/{customerId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/spring-exception-handling-graphql-vs-rest/v1/customers/f868e26f-61a4-4d84-9b3b-d2bc4bc7207d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"spring-exception-handling-graphql-vs-rest",
+								"v1",
+								"customers",
+								"f868e26f-61a4-4d84-9b3b-d2bc4bc7207d"
+							],
+							"query": [
+								{
+									"key": "fullName",
+									"value": "Ivan Polovyi",
+									"disabled": true
+								},
+								{
+									"key": "phoneNumber",
+									"value": "893-087-1038",
+									"disabled": true
+								},
+								{
+									"key": "createdAt",
+									"value": "2016-01-30",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/customers",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Ivan Polovyi\",\n    \"phoneNumber\": \"8312592365\",\n    \"address\": \"Apt. 843 399 Lachelle Crossing, New Eldenhaven, LA 63962-9260\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/spring-exception-handling-graphql-vs-rest/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"spring-exception-handling-graphql-vs-rest",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "graphql",
+			"item": [
+				{
+					"name": "customerById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n       customerById(customerId: \"f868e26f-61a4-4d84-9b3b-d2bc4bc7207d\") {\n                                              id\n                                              fullName \n                                              phoneNumber\n                                              address\n                                              createdAt\n                                                          }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/spring-exception-handling-graphql-vs-rest/customers-graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"spring-exception-handling-graphql-vs-rest",
+								"customers-graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customerById (with variables)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query ($customerId : String ){\n       customerById(customerId: $customerId) {\n                                              id\n                                              fullName \n                                              phoneNumber\n                                              address\n                                              createdAt\n                                                          }\n}",
+								"variables": "{\n    \"customerId\": \"686f8cd5-fa44-435a-9e22-de70937fb1c3\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/spring-exception-handling-graphql-vs-rest/customers-graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"spring-exception-handling-graphql-vs-rest",
+								"customers-graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCustomer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    createCustomer (createCustomerRequest : {\n                            fullName  : \"Ivan Polovyi\"\n                            phoneNumber : \"8312592365\"\n                            address : \"Apt. 843 399 Lachelle Crossing, New Eldenhaven, LA 63962-9260\"\n    }) {\n        id\n        fullName \n        phoneNumber\n        address\n        createdAt\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/spring-exception-handling-graphql-vs-rest/customers-graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"spring-exception-handling-graphql-vs-rest",
+								"customers-graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCustomers (with variables)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ($createCustomerRequest : CreateCustomerRequest) {\n    createCustomer (createCustomerRequest : $createCustomerRequest)\n    {\n        id\n        fullName \n        phoneNumber\n        address\n        createdAt\n    }\n}",
+								"variables": "{\n    \"createCustomerRequest\": {\n         \"fullName\"  : \"Ivan Polovyi\",\n         \"phoneNumber\" : \"8312592365\",\n         \"address\" : \"Apt. 843 399 Lachelle Crossing, New Eldenhaven, LA 63962-9260\"\n    }\n}\n\n"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/spring-exception-handling-graphql-vs-rest/customers-graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"spring-exception-handling-graphql-vs-rest",
+								"customers-graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
